@@ -1,0 +1,47 @@
+/* STEP: Global stylesheet.
+   The website intentionally uses a dark, clean technical visual language.
+   Most component styling is done with Tailwind utility classes. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #07090d;
+  color: #f4f4f5;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #ffffff;
+  color: #07090d;
+}
+
+/* Reusable subtle grid used to give the hero a technical feel without
+   relying on heavy animations or distracting effects. */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(14px);
+}
+
+.container-wide {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
