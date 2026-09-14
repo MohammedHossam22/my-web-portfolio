@@ -2,7 +2,8 @@ name: Terraform infrastuctre Apply
 
 on:
   push:
-    branches: ["{DEFAULT_BRANCH}"]   # e.g. "main"
+    branches: 
+      - master  
     paths:
       - "terraform/**.tf"
   workflow_dispatch:
