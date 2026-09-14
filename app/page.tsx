@@ -29,7 +29,7 @@ export default function Home() {
             A real contact microservice can be connected in a later phase. */}
         <section id="contact" className="border-t border-white/10 py-28">
           <div className="container-wide">
-            <p className="text-sm uppercase tracking-[0.25em] text-zinc-500">06 / Contact</p>
+            <p className="text-sm uppercase tracking-[0.25em] text-zinc-500">Contact</p>
             <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
               Have a project, opportunity, or technical conversation in mind?
             </h2>

@@ -11,45 +11,23 @@ locals {
 }
 
 data "aws_iam_policy_document" "github_user_policy" {
-  # Bucket-level actions, including the config calls terraform apply needs
-  # to reconcile s3.tf on every run (policy/versioning/website/public-access-block).
+  # Full S3 access - but ONLY on this one bucket (both the bucket ARN itself
+  # and everything inside it). Deliberately a wildcard action instead of an
+  # enumerated list: an enumerated list needs a new entry every time s3.tf
+  # grows a new resource type (CORS, lifecycle, replication, whatever comes
+  # next), which is exactly the whack-a-mole you just hit. s3:* still can't
+  # reach any OTHER bucket or any other AWS service - the blast radius is
+  # the resources list below, not the actions list.
   statement {
-    sid    = "BucketLevelActions"
+    sid    = "FullS3AccessThisBucketOnly"
     effect = "Allow"
     actions = [
-      "s3:CreateBucket",
-      "s3:ListBucket",
-      "s3:ListBucketVersions",
-      "s3:GetBucketLocation",
-      "s3:GetBucketVersioning",
-      "s3:PutBucketVersioning",
-      "s3:GetBucketPolicy",
-      "s3:PutBucketPolicy",
-      "s3:GetBucketWebsite",
-      "s3:PutBucketWebsite",
-      "s3:GetBucketPublicAccessBlock",
-      "s3:PutBucketPublicAccessBlock",
-      "s3:GetBucketTagging",
-      "s3:PutBucketTagging",
+      "s3:*",
     ]
-    resources = [aws_s3_bucket.portfolio.arn]
-  }
-
-  # Full read/write/delete on every object in the bucket, state file included -
-  # the pipeline needs that both to sync site content and to read/write the
-  # state object under state_prefix on every terraform apply.
-  statement {
-    sid    = "ObjectLevelFullAccess"
-    effect = "Allow"
-    actions = [
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:PutObject",
-      "s3:DeleteObject",
-      "s3:DeleteObjectVersion",
-      "s3:PutObjectAcl",
+    resources = [
+      aws_s3_bucket.portfolio.arn,
+      "${aws_s3_bucket.portfolio.arn}/*",
     ]
-    resources = ["${aws_s3_bucket.portfolio.arn}/*"]
   }
 
   # Self-management only: this lets the CI user re-apply iam.tf (refresh,
@@ -67,7 +45,6 @@ data "aws_iam_policy_document" "github_user_policy" {
     sid    = "SelfIamManagement"
     effect = "Allow"
     actions = [
-      "iam:CreateUser",
       "iam:GetUser",
       "iam:TagUser",
       "iam:ListAccessKeys",
