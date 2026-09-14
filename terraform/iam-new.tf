@@ -17,6 +17,7 @@ data "aws_iam_policy_document" "github_user_policy" {
     sid    = "BucketLevelActions"
     effect = "Allow"
     actions = [
+      "s3:CreateBucket",
       "s3:ListBucket",
       "s3:ListBucketVersions",
       "s3:GetBucketLocation",
@@ -66,6 +67,7 @@ data "aws_iam_policy_document" "github_user_policy" {
     sid    = "SelfIamManagement"
     effect = "Allow"
     actions = [
+      "iam:CreateUser",
       "iam:GetUser",
       "iam:TagUser",
       "iam:ListAccessKeys",
