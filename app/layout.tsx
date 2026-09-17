@@ -1,6 +1,3 @@
-// STEP: Root layout.
-// This wraps every page in the application.
-// Global metadata belongs here because it affects the whole website.
 
 import type { Metadata } from "next";
 import "./globals.css";

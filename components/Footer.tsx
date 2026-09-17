@@ -1,5 +1,4 @@
-// STEP: Footer.
-// Keep this simple; the main content should remain the focus.
+
 
 import { site } from "@/data/site";
 

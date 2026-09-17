@@ -1,5 +1,4 @@
-// STEP: Professional account cards.
-// Keep account URLs in data/site.ts so you only change them in one place.
+
 
 import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
 import { site } from "@/data/site";

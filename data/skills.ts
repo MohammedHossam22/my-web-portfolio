@@ -1,5 +1,4 @@
-// STEP: Skills are kept as data instead of hard-coding them inside components.
-// Add a new skill by adding another item to one of these arrays.
+
 
 export const skillGroups = [
   {

@@ -1,6 +1,3 @@
-// STEP: DevOps architecture section.
-// This is intentionally a static visual for now.
-// During the Kubernetes phase, update it to reflect the real deployment.
 
 const stages = [
   "GitHub",

@@ -1,6 +1,3 @@
-// STEP: Projects section.
-// Projects are intentionally presented as case-study entry points.
-// Later, each project can become its own route such as /projects/bookstore.
 
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/projects";

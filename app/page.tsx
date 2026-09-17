@@ -1,6 +1,4 @@
-// STEP: Home page.
-// This file composes reusable sections.
-// If you create another section, import it here and place it in the desired order.
+
 
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";

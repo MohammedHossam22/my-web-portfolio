@@ -10,7 +10,7 @@ const nextConfig = {
 
   // Generate /about/index.html instead of /about.html.
   // This works better with static web servers such as S3.
-  trailingSlash: true, // 👈 CRITICAL FOR S3 DEPLOYMENTS
+  trailingSlash: true,
 
   // Next/Image normally expects a Next.js server to optimize images.
   // Since we are removing the Next.js server, disable that optimization.

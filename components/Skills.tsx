@@ -1,6 +1,3 @@
-// STEP: Skills section.
-// This reads from data/skills.ts, so you can add/remove skills without
-// changing this component.
 
 import { skillGroups } from "@/data/skills";
 

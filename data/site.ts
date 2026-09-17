@@ -1,6 +1,4 @@
-// STEP: Central place for personal-brand information.
-// Edit this file when you want to change your name, headline, summary, email, etc.
-// Keeping content here prevents you from hunting through UI components later.
+
 
 export const site = {
   name: "Mohammed Hossam",

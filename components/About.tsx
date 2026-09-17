@@ -1,6 +1,4 @@
-// STEP: About section.
-// Keep this as a concise professional story. The detailed employment/CV
-// information can remain on the dedicated CV page.
+
 
 import { site } from "@/data/site";
 

@@ -1,6 +1,4 @@
-// STEP: Project information lives here.
-// Each project becomes a card automatically.
-// Replace the GitHub URLs with your real repository URLs.
+
 
 export const projects = [
   {

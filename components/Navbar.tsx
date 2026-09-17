@@ -1,5 +1,3 @@
-// STEP: Navigation component.
-// Keep navigation links here so adding a new page later is straightforward.
 
 import Link from "next/link";
 import { site } from "@/data/site";

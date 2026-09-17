@@ -1,6 +1,4 @@
-// STEP: Hero section.
-// This is the first impression. Keep the message short and focused on your
-// primary professional identity rather than listing every technology you know.
+
 
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
@@ -55,10 +53,6 @@ export function Hero() {
 
         </div>
 
-        {/* STEP: Profile image.
-            `absolute` removes the image from the normal layout flow.
-            Therefore, adding/removing/resizing the image will NOT
-            move the text or buttons. */}
 
         <div className="pointer-events-none absolute right-0 top-1/2 hidden -translate-y-1/2 md:block">
           <div className="relative h-[420px] w-[340px]">
