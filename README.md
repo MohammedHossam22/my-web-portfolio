@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built with **Next.js, TypeScript, and Tailwind CSS**.
 
-### [my portfolio](https://muhammed-portfolio-s3.s3.eu-north-1.amazonaws.com/index.html)
+### [my portfolio](https://staging.d3aadsli5ixben.amplifyapp.com/)
 
 ## Features
 
