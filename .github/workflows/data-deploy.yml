@@ -26,5 +26,5 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Sync site to S3
-        # we execluded the terraform/ dir from the s3 so that the workflow doesn't change on that file (that has the terrafrom state file)
-        run:  aws s3 sync public/cv/ s3://${{ secrets.S3_BUCKET_NAME }}/cv --delete --exclude "terraform/*"
+        # we execluded any static pages from the s3 so that the workflow don't delet them
+        run:  aws s3 sync public/cv/ s3://${{ secrets.S3_BUCKET_NAME }}/cv --delete --exclude "*.html" --exclude "index.*"
