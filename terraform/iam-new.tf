@@ -90,3 +90,4 @@ resource "aws_iam_user_policy_attachment" "github_deployer" {
 resource "aws_iam_access_key" "github_deployer" {
   user = aws_iam_user.github_deployer.name
 }
+
