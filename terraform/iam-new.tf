@@ -12,6 +12,7 @@ data "aws_iam_policy_document" "github_user_policy" {
     effect = "Allow"
     actions = [
       "s3:*",
+      "s3:GetBucketAcl",
     ]
     resources = [
       aws_s3_bucket.portfolio.arn,
