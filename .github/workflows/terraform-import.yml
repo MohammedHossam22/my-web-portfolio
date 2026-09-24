@@ -1,0 +1,111 @@
+name: Terraform Import (one-off state repair)
+
+# Manually triggered ONLY - go to the Actions tab in GitHub, pick this
+# workflow, click "Run workflow". Nothing to type in a terminal.
+#
+# Use this once if a push-triggered apply fails with things like
+# "BucketAlreadyOwnedByYou" or "iam:CreateUser ... AccessDenied" on a
+# resource that already exists in AWS - it means the S3 backend's state
+# doesn't have that resource tracked yet, even though it's real. This
+# reattaches it instead of letting apply try (and fail) to create it again.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.0"
+
+      - name: Terraform Init
+        run: terraform init
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+
+      # Each import is a read-only reconciliation - "this address in config
+      # corresponds to this real resource" - it does not create or modify
+      # anything in AWS. If a resource is already tracked in state, its
+      # import here will just no-op/error harmlessly ("resource already
+      # managed") rather than duplicate anything - safe to leave all four
+      # in even if only some are actually missing from state.
+      - name: Import existing S3 bucket
+        run: terraform import aws_s3_bucket.portfolio muhammed-portfolio-s3
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      # Each of these is a distinct Terraform resource in s3.tf even though
+      # they're all "part of" the same bucket in the console - all four were
+      # equally absent from state, so all four need their own import. Import
+      # ID for each is just the bucket name, per that resource type's own
+      # import convention.
+      - name: Import existing bucket versioning config
+        run: terraform import aws_s3_bucket_versioning.portfolio muhammed-portfolio-s3
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing website configuration
+        run: terraform import aws_s3_bucket_website_configuration.portfolio muhammed-portfolio-s3
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing public access block
+        run: terraform import aws_s3_bucket_public_access_block.portfolio muhammed-portfolio-s3
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing bucket policy
+        run: terraform import aws_s3_bucket_policy.portfolio muhammed-portfolio-s3
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing IAM user
+        run: terraform import aws_iam_user.github_deployer web-portfolio-terraform-github
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing IAM policy
+        run: terraform import aws_iam_policy.github_deployer arn:aws:iam::301001539463:policy/web-portfolio-terraform-github-s3-policy
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Import existing policy attachment
+        run: terraform import aws_iam_user_policy_attachment.github_deployer web-portfolio-terraform-github/arn:aws:iam::301001539463:policy/web-portfolio-terraform-github-s3-policy
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
+        continue-on-error: true
+
+      # NOT importing aws_iam_access_key - AWS never returns an existing
+      # key's secret, so it can't be imported with a usable value. Let the
+      # next normal apply create a fresh one; github_secrets.tf pushes the
+      # new secret to Actions automatically, nothing manual needed.
+
+      - name: Show resulting plan (sanity check, changes nothing)
+        run: terraform plan
+        env:
+          TF_VAR_github_token: ${{ secrets.TF_GITHUB_TOKEN }}

@@ -20,7 +20,7 @@ export function Navbar() {
         </nav>
 
         <a
-          href="/cv/Mohammed-Hossam-devops.pdf"
+          href="/cv/Mohammed-Hossam.pdf"
           target="_blank"
           rel="noreferrer"
           className="rounded-full border border-white/15 px-4 py-2 text-sm font-medium transition hover:bg-white hover:text-black"
