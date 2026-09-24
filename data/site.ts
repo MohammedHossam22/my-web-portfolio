@@ -8,7 +8,7 @@ export const site = {
 
   links: {
     github: "https://github.com/MohammedHossam22/",
-    linkedin: "www.linkedin.com/in/mohamed-hossam-750a17285",
+    linkedin: "https://www.linkedin.com/in/mohamed-hossam-750a17285/",
   },
 
   hero: {

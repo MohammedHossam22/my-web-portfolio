@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built with **Next.js, TypeScript, and Tailwind CSS**.
 
-### [my portfolio](https://staging.d3aadsli5ixben.amplifyapp.com/)
+### [my portfolio](https://staging.d1rgh0f841jc2s.amplifyapp.com/)
 
 ## Features
 
