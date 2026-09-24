@@ -54,7 +54,7 @@ variable "error_document" {
 variable "amplify_app_id" {
   description = "ID of the Amplify app you already created in the console (e.g. \"d1a2b3c4d5e6f7\"). This app is NOT managed by Terraform - only referenced, so nothing here can touch its console-configured settings."
   type        = string
-  default     = "{d1rgh0f841jc2s}"
+  default     = "d1rgh0f841jc2s"
 }
 
 variable "amplify_branch_name" {
