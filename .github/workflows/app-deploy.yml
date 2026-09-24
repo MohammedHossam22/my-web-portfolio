@@ -36,7 +36,7 @@ jobs:
       - name: Deploy static assets to S3
         run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude "terraform/*"
 
-      - name: Sync built site to S3
+      - name: Sync static asstes to the amplify dir in S3
         run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.SITE_PREFIX }} --delete
 
       - name: Trigger Amplify deployment
