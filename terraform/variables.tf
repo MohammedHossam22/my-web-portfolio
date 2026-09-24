@@ -51,3 +51,20 @@ variable "error_document" {
   type        = string
   default     = "error.html"
 }
+variable "amplify_app_id" {
+  description = "ID of the Amplify app you already created in the console (e.g. \"d1a2b3c4d5e6f7\"). This app is NOT managed by Terraform - only referenced, so nothing here can touch its console-configured settings."
+  type        = string
+  default     = "{d1rgh0f841jc2s}"
+}
+
+variable "amplify_branch_name" {
+  description = "Amplify branch to deploy to - must already exist on the app in the console"
+  type        = string
+  default     = "staging"
+}
+
+variable "site_prefix" {
+  description = "Key prefix inside the bucket where built site artifacts live, kept separate from both the bucket root and state_prefix so Amplify's BUCKET_PREFIX pull can never accidentally reach terraform/"
+  type        = string
+  default     = "amplify`"
+}

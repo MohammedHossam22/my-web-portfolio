@@ -3,6 +3,7 @@ data "aws_caller_identity" "current" {}
 locals {
   github_deployer_policy_name = "${var.github_user_name}-s3-policy"
   github_deployer_policy_arn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${local.github_deployer_policy_name}"
+  amplify_app_arn             = "arn:aws:amplify:${var.aws_region}:${data.aws_caller_identity.current.account_id}:apps/${var.amplify_app_id}"
 }
 
 data "aws_iam_policy_document" "github_user_policy" {
@@ -11,13 +12,30 @@ data "aws_iam_policy_document" "github_user_policy" {
     effect = "Allow"
     actions = [
       "s3:*",
-      "s3:GetBucketAcl",
     ]
     resources = [
       aws_s3_bucket.portfolio.arn,
       "${aws_s3_bucket.portfolio.arn}/*",
     ]
   }
+
+  statement {
+    sid    = "AmplifyDeployThisAppOnly"
+    effect = "Allow"
+    actions = [
+      "amplify:GetApp",
+      "amplify:GetBranch",
+      "amplify:CreateDeployment",
+      "amplify:StartDeployment",
+      "amplify:GetJob",
+      "amplify:ListJobs",
+    ]
+    resources = [
+      local.amplify_app_arn,
+      "${local.amplify_app_arn}/*",
+    ]
+  }
+
   statement {
     sid    = "SelfIamManagement"
     effect = "Allow"

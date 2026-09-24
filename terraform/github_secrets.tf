@@ -32,3 +32,21 @@ resource "github_actions_secret" "tf_github_token" {
   secret_name     = "TF_GITHUB_TOKEN"
   plaintext_value = var.github_token
 }
+
+resource "github_actions_secret" "amplify_app_id" {
+  repository      = var.github_repo
+  secret_name     = "AMPLIFY_APP_ID"
+  plaintext_value = var.amplify_app_id
+}
+
+resource "github_actions_secret" "amplify_branch_name" {
+  repository      = var.github_repo
+  secret_name     = "AMPLIFY_BRANCH_NAME"
+  plaintext_value = var.amplify_branch_name
+}
+
+resource "github_actions_secret" "site_prefix" {
+  repository      = var.github_repo
+  secret_name     = "SITE_PREFIX"
+  plaintext_value = var.site_prefix
+}
