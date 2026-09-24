@@ -66,5 +66,5 @@ variable "amplify_branch_name" {
 variable "site_prefix" {
   description = "Key prefix inside the bucket where built site artifacts live, kept separate from both the bucket root and state_prefix so Amplify's BUCKET_PREFIX pull can never accidentally reach terraform/"
   type        = string
-  default     = "amplify`"
+  default     = "amplify"
 }

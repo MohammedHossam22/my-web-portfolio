@@ -39,13 +39,5 @@ jobs:
       - name: Sync built site to S3
         run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.SITE_PREFIX }} --delete
 
-      # Amplify pulls everything under this one prefix and deploys it -
-      # no separate upload/zip dance needed since we're using BUCKET_PREFIX
-      # instead of a single zip file.
       - name: Trigger Amplify deployment
-        run: |
-          aws amplify start-deployment \
-            --app-id "${{ secrets.AMPLIFY_APP_ID }}" \
-            --branch-name "${{ secrets.AMPLIFY_BRANCH_NAME }}" \
-            --source-url "s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.SITE_PREFIX }}" \
-            --source-url-type BUCKET_PREFIX
+        run: aws amplify start-deployment --app-id "${{ secrets.AMPLIFY_APP_ID }}" --branch-name "${{ secrets.AMPLIFY_BRANCH_NAME }}" --source-url "s3://${{ secrets.S3_BUCKET_NAME }}/${{ secrets.SITE_PREFIX }}" --source-url-type BUCKET_PREFIX
