@@ -28,3 +28,5 @@ jobs:
       - name: Sync site to S3
         # we execluded any static pages from the s3 so that the workflow don't delet them
         run:  aws s3 sync public/cv/ s3://${{ secrets.S3_BUCKET_NAME }}/cv --delete --exclude "*.html" --exclude "index.*"
+      - name: Trigger Amplify CDN Update
+        run: aws amplify start-deployment --app-id ${{ secrets.AMPLIFY_APP_ID }} --branch-name staging --source-url-type BUCKET_PREFIX --source-url s3://muhammed-portfolio-s3

@@ -15,7 +15,7 @@ export default function CVPage() {
           </Link>
 
           <a
-            href="/cv/Mohammed-Hossam-devops.pdf"
+            href="/cv/Mohammed-Hossam.pdf"
             download
             className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-black"
           >
@@ -27,7 +27,7 @@ export default function CVPage() {
             This lets visitors read the CV without leaving your website. */}
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-white">
           <iframe
-            src="/cv/Mohammed-Hossam-devops.pdf"
+            src="/cv/Mohammed-Hossam.pdf"
             title="Mohammed Hossam CV"
             className="h-[calc(100vh-130px)] min-h-[700px] w-full"
           />

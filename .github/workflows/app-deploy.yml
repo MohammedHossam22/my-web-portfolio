@@ -35,3 +35,6 @@ jobs:
 
       - name: Deploy static assets to S3
         run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --exclude "terraform/*"
+      - name: Trigger Amplify CDN Update
+        run: aws amplify start-deployment --app-id ${{ secrets.AMPLIFY_APP_ID }} --branch-name staging --source-url-type BUCKET_PREFIX --source-url s3://muhammed-portfolio-s3
+
